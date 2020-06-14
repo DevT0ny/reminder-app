@@ -1,4 +1,5 @@
 class reminder extends HTMLElement{
+
     constructor(){
         super();
         // const type= this.getAttribute('type');
@@ -6,7 +7,11 @@ class reminder extends HTMLElement{
         var data = new Date(parseInt(timestamp));
         var hour= data.getHours();
         var format = "AM";
+        function putZero(n) {
+            return (n < 10 ? '0' : '') + n;
+        }
         if (hour == 0){ hour= 12;}
+
         else if (hour >= 12){ format="PM";if (hour >12)  hour-=12;}
         this.innerHTML=`  
         <div class="reminder">
@@ -15,9 +20,9 @@ class reminder extends HTMLElement{
                     <span class="month">${data.toDateString().slice(4,7).toLocaleUpperCase()}</span>
             </div>
             <div class="reminder__cont2" >
-                <span class="hr" >${hour}</span>
+                <span class="hr" >${putZero(hour)}</span>
                 :
-                <span class="min">${data.getMinutes()} </span>
+                <span class="min">${putZero(data.getMinutes())} </span>
                 <span class="stamp">${format}</span>
             </div>
             <div class="reminder__cont3" >

@@ -29,19 +29,16 @@ var timeoutsIds={}
  */
 function setAlarm(reminder){
     var timeout = reminder - new Date().getTime()
-    // console.log(timeout)
+    // console.log(timeout) 
     var id = setTimeout(()=>{
-        alert(reminder/1000)
+        navigator.vibrate([500,110,500,110,450,110,200,110,170,40,450,110,200,110,170,40,500]) // for vibrating credit :https://youtu.be/EZpdEljk5dY?t=563
+        alert(new Date(reminder).toLocaleTimeString()+"\nHello darkness, my old friend I've come to talk with you again")
         destroyReminder(reminder)
     },timeout)
     timeoutsIds[reminder]= id; 
     document.getElementById("reminders").innerHTML+=`<reminder-card id="${reminder}" unixTimestamp="${reminder}"></reminder-card>`
 }
 
-/**
- * @param {object} collection of reminders
- * 
- */
 function loadReminders(){
     var reminders = JSON.parse(localStorage.getItem("reminders"))
     //console.log("Reminders :",reminders)
@@ -85,6 +82,7 @@ function saveReminder(){
 */
 function destroyReminder(reminderToDelete) {
     // console.error(reminderToDelete)
+    navigator.vibrate(0)
     var reminders = JSON.parse( localStorage.getItem("reminders"))
     var filteredReminders = reminders.filter(reminder=>reminder!==reminderToDelete)
     localStorage.setItem("reminders",JSON.stringify(filteredReminders))

@@ -1,7 +1,8 @@
 body{
     margin: 0;
     padding: 0;
-    background-color: rgb(156, 144, 199);
+    /* background-color: rgb(156, 144, 199); */
+    background-color: #ffffff;
     width: 100%;
     height:100%;
     
@@ -9,15 +10,26 @@ body{
 *{
     font-family: 'Montserrat', sans-serif;
 }
-
-.card{
-    background: #000C36;
+.container{
     width: 360px;
     height: 600px;
     margin: auto;
     margin-top: 20px;
     text-align: center;
+    border-radius: 10px;
+    background: #ffffff;
+    overflow: hidden;
+    box-shadow:  20px 20px 50px #888888, 
+                -20px -20px 50px #ffffff;
 }
+.card{
+    width: 360px;
+    height: 600px;
+    background: #ffffff;
+    box-shadow: inset 25px 25px 60px #bababa, 
+    inset -25px -25px 60px #ffffff;
+}
+
 .header{
     background-color: #AC07FA;
     height: 7%;
@@ -32,7 +44,12 @@ body{
     overflow: auto;
     white-space: nowrap;
     cursor: pointer;
-    height: 75%;
+    height: 100%;   
+    background: #ffffff;
+    box-shadow: inset 25px 25px 60px #bababa,
+    inset -25px -25px 60px #ffffff; 
+    padding-bottom: 140px;
+    box-sizing: border-box;
 }
 ::-webkit-scrollbar {
     display: none;
@@ -41,23 +58,26 @@ body{
 .reminder{
     display: flex;
     flex-direction: row;
-    background: linear-gradient(180deg, #2907FA -70.28%, #AC07FA 93.4%);
     border-radius: 6px;
     height: 70px;
     width: 90%;
     margin: 10px auto;
     align-items: center;
     justify-content: center;
-
+    background: linear-gradient(145deg, #ffffff, #e6e6e6);
+    box-shadow:  25px 25px 60px #bababa, 
+                -25px -25px 60px #ffffff;
 }
+
 .reminder > div{
     text-align: center;
-    color: white;
-   
+    color: #AC07FA;
 }
+
 .reminder__cont1{
    flex-grow: 6;
 }
+
 .reminder__cont2{
     flex-grow: 6;
     font-size: 28px;
@@ -71,43 +91,44 @@ body{
 span.date{
     font-size: 28px;
     font-weight: 800;
+    color :#2907FA;
 }
 
 span.month{
     font-size: 14px;
     font-weight: 600;
     letter-spacing: 1.5px;
+    color :#2907FA;
+
 }
 span.stamp{
     font-size: 10px;
 }
 
-/* span[id="hr"],
-span[id="min"]{ */
 .addButton{
     position: relative;
-    top:1em;
+    top:-10em;
     left : 0px;
     width: 50px;
     height: 50px;
-    background-color: #AC07FA;
-    border-radius: 50%;
     z-index: 2;
     border: none;
     box-shadow: 0 4px 25px rgba(0, 0, 0, 0.8);
     outline: none;
+    border-radius: 50%;
+    background: linear-gradient(145deg, #b807ff, #9b06e1);
+    box-shadow:  10px 10px 28px #8c8c8c, 
+    -10px -10px 28px #ffffff;
 }
 
 i.im-x-mark{
     font-size: 12px;
-    /* width: 100% !important; */
 }
 i.im-plus{
     font-size: 20px;
     margin-top: 2px;
     color: white;
     transition: transform .3s;
- 
 }
 i.rotate{
     transform: rotate(45deg);
@@ -117,37 +138,31 @@ i.rotate{
     position: absolute;
     left:0px;
     left: calc( 50vw - 180px);
-    top: 0px;
+    top: 20px;
     transition-delay: 9s;
-    /* transform: translateY(100%); */
-    /* transform: scaleY(0); */
     opacity: 0;
     display: none;
     transition: opacity .3s ;
     transform-origin: top;
-    
-    
-
+    overflow: hidden;
+    border-radius: 10px;
 }
 .disp{
     display:block;
     opacity: 1;
-    /* transform: scaleY(1); */
-
 }
+
 .time{
     font-size: 50px;
     font-weight: 700;
-    color: white;
+    color: #AC07FA;
     margin-top: 20px;
-    
 }
 
 .hrs,.mins{
     overflow: auto;
     white-space: nowrap;
     cursor: pointer;
-    /* margin-top: 10px; */
 }
 
 .hrs > button,
@@ -173,10 +188,8 @@ i.rotate{
 }
 .hrs > button:active{
     background-color:#AC07FA ;
-    transform: scale(1.2);
-
+    transform: scale(1.3) ;
 }
-
 .mins > button{
     background-color:#2907FA;
 }
@@ -185,10 +198,10 @@ i.rotate{
 }
 .mins > button:active{
     background-color:#AC07FA ;
-    transform: scale(1.2);
+    transform: scale(1.3);
 }
 h4{
-    color: white;
+    color: #AC07FA;
     cursor: pointer;
 }
 
@@ -199,6 +212,9 @@ h4{
     justify-content: center;
     overflow: hidden;
     border-radius: 15px;
+    border-radius: 22px;
+    box-shadow:  14px 14px 28px #808080, 
+    -14px -14px 28px #ffffff;
 }
 .radio > input[type="radio"]{
     display: none;
@@ -212,21 +228,55 @@ h4{
 
 .radio > input[type="radio"]:checked + label{
     background-color:#AC07FA ;
-
 }
-button#save{
+
+#save{
     background-color:#2907FA;
     color: white;
     font-size: 18px;
     border: 0;
-    border-radius: 4px;
+    border-radius: 50%;
     font-weight: 600;
-    padding: 5px 10px;
-    margin-top: 30px;
+    padding: 5px 8.6px;
+    margin-top: 25px;
     outline: none;
     box-shadow: 0 4px 25px rgba(0, 0, 0, 0.6);
+    transform: scale(1.3);
+    box-shadow:  14px 14px 28px #878787, 
+    -14px -14px 28px #ffffff;
+    transition: background .1s;
 }
+#save:hover{
+    background-color:#AC07FA;
+
+}
+#save:active{
+    transform: scale(1.5);
+}
+
 button#save:active{
     background-color:#AC07FA ;
     
+}
+
+/* credits and github */
+.git{
+    position: fixed;
+    right:2%;
+    top : 2%;
+}
+.credit{
+    color : rgb(201, 85, 255);
+    font-size: 10px;
+    position: fixed;
+    bottom: 2%;
+    right: 2%;
+}
+
+@media only screen and (max-width: 600px) {
+    .git,.credit{
+        display: inline;
+        position: static;
+
+    }
 }
