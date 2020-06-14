@@ -21,7 +21,7 @@ class reminder extends HTMLElement{
                 <span class="stamp">${format}</span>
             </div>
             <div class="reminder__cont3" >
-            <i class="im im-x-mark" onclick="removeReminder(this)" ></i>
+            <i class="im im-x-mark" onclick="destroyReminder(${data.getTime()})" ></i>
             </div>
         </div>
         `

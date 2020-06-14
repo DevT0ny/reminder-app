@@ -10,25 +10,27 @@ function setHr(ele) {
 function setMin(ele) {
    _Min.innerHTML=ele.innerHTML   
 }
+var timeouts={}
 
 function loadReminders(){
     var reminders = JSON.parse(localStorage.getItem("reminders"))
     console.log("Reminders :",reminders)
 
-    if (reminders.length > 0){
+    if (reminders){
         console.group("Timeouts")
         reminders.forEach(reminder=>{
             var timeOut = reminder - new Date().getTime()
             console.log(timeOut)
-            setTimeout(()=>{
+            var id = setTimeout(()=>{
                 alert(reminder/1000)
-                selfDestruct(reminder)
+                destroyReminder(reminder)
             },timeOut)
-            document.getElementById("fuck").innerHTML+=`<reminder-card unixTimestamp="${reminder}"></reminder-card>`
+            timeouts[reminder]= id;
+            document.getElementById("fuck").innerHTML+=`<reminder-card id="${reminder}" unixTimestamp="${reminder}"></reminder-card>`
         })
         console.groupEnd()
     }
-
+console.log("timeouts",timeouts)
 }
 // var reminderCard = 
 
@@ -42,17 +44,18 @@ function saveReminder(){
     var reminder = new Date(`${currentDate.getMonth()+1}/${currentDate.getDate()}/${currentDate.getFullYear()}, ${hour}:${min}:00`).getTime() , time2=currentDate.getTime() 
     console.log("new Reminder :",reminder)
     var reminders= JSON.parse(localStorage.getItem("reminders"))
-    var newReminders = (reminders.length > 0)? reminders:[]
+    var newReminders = (reminders)? reminders:[]
     newReminders.push(reminder)
     localStorage.setItem("reminders", JSON.stringify(newReminders))
     //location.reload()  // loadReminders()
     var timeOut = reminder - new Date().getTime()
     console.log(timeOut)
-    setTimeout(()=>{
+    var id = setTimeout(()=>{
         alert(reminder/1000)
-        selfDestruct(reminder)
+        destroyReminder(reminder)
     },timeOut)
-    document.getElementById("fuck").innerHTML+=`<reminder-card unixTimestamp="${reminder}"></reminder-card>`
+    timeouts[reminder]=id
+    document.getElementById("fuck").innerHTML+=`<reminder-card id="${reminder}" unixTimestamp="${reminder}"></reminder-card>`
 
 
 }
@@ -62,12 +65,21 @@ function toggle() {
     document.getElementById("addWindow").classList.toggle("disp");
     document.getElementById("op").classList.toggle("rotate");
 }
-function selfDestruct(reminderToDelete) {
+function destroyReminder(reminderToDelete) {
+    // remove from LS , clearSetTimeout , remove element
     console.error(reminderToDelete)
+
     var reminders = JSON.parse( localStorage.getItem("reminders"))
     var filteredReminders = reminders.filter((reminder)=>reminder!==reminderToDelete)
     console.log(filteredReminders)
     localStorage.setItem("reminders",JSON.stringify(filteredReminders))
+
+    clearTimeout(timeouts[reminderToDelete])
+    // console.log(reminderToDelete)
+    var d=document.getElementById(reminderToDelete.toString())
+    console.log(d)
+    d.remove()
+    
     
 }
 
