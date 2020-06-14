@@ -1,5 +1,6 @@
 class reminder extends HTMLElement{
-
+// This is web component and no third party framework is required
+// This component represents card which shows reminder time and date in DOM
     constructor(){
         super();
         // const type= this.getAttribute('type');
@@ -11,8 +12,11 @@ class reminder extends HTMLElement{
             return (n < 10 ? '0' : '') + n;
         }
         if (hour == 0){ hour= 12;}
+        else if (hour >= 12){ 
+            format="PM";
+            if (hour >12)  hour-=12;
+        }
 
-        else if (hour >= 12){ format="PM";if (hour >12)  hour-=12;}
         this.innerHTML=`  
         <div class="reminder">
             <div class="reminder__cont1" >
