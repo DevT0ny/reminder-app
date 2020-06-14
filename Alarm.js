@@ -1,85 +1,94 @@
 
-var _Hour = document.getElementById("_hr")
-var _Min=  document.getElementById("_min")
-var days = document.getElementsByName("Day")
+var Hour = document.getElementById("hr")
+var Min =  document.getElementById("min")
+var Period = document.getElementsByName("period")
 
 function setHr(ele) {
-    _Hour.innerHTML=ele.innerHTML
+    Hour.innerHTML=ele.innerHTML
 
 }
 function setMin(ele) {
-   _Min.innerHTML=ele.innerHTML   
+    Min.innerHTML=ele.innerHTML   
 }
-var timeouts={}
-
-function loadReminders(){
-    var reminders = JSON.parse(localStorage.getItem("reminders"))
-    console.log("Reminders :",reminders)
-
-    if (reminders){
-        console.group("Timeouts")
-        reminders.forEach(reminder=>{
-            var timeOut = reminder - new Date().getTime()
-            console.log(timeOut)
-            var id = setTimeout(()=>{
-                alert(reminder/1000)
-                destroyReminder(reminder)
-            },timeOut)
-            timeouts[reminder]= id;
-            document.getElementById("fuck").innerHTML+=`<reminder-card id="${reminder}" unixTimestamp="${reminder}"></reminder-card>`
-        })
-        console.groupEnd()
-    }
-console.log("timeouts",timeouts)
-}
-// var reminderCard = 
-
-function saveReminder(){
-    var hour= parseInt(_Hour.innerHTML)
-    var min = parseInt(_Min.innerHTML)
-    if      (days[1].checked && hour<12 ) hour+=12;
-    else if (days[0].checked && hour==12) hour=00;
-    console.log(hour, min)
-    var currentDate = new Date()
-    var reminder = new Date(`${currentDate.getMonth()+1}/${currentDate.getDate()}/${currentDate.getFullYear()}, ${hour}:${min}:00`).getTime() , time2=currentDate.getTime() 
-    console.log("new Reminder :",reminder)
-    var reminders= JSON.parse(localStorage.getItem("reminders"))
-    var newReminders = (reminders)? reminders:[]
-    newReminders.push(reminder)
-    localStorage.setItem("reminders", JSON.stringify(newReminders))
-    //location.reload()  // loadReminders()
-    var timeOut = reminder - new Date().getTime()
-    console.log(timeOut)
-    var id = setTimeout(()=>{
-        alert(reminder/1000)
-        destroyReminder(reminder)
-    },timeOut)
-    timeouts[reminder]=id
-    document.getElementById("fuck").innerHTML+=`<reminder-card id="${reminder}" unixTimestamp="${reminder}"></reminder-card>`
-
-
-}
-
 
 function toggle() {
     document.getElementById("addWindow").classList.toggle("disp");
     document.getElementById("op").classList.toggle("rotate");
 }
+/**
+ * @param {Iterable} timeoutsIds collection of setTimeout IDs 
+ * example : {1592154000000: 1}
+ */
+var timeoutsIds={}
+
+/**
+ * Sets the alarm and displays in HTML DOM
+ * @arg {number} reminder it represents the alarm date and time in unixTimestamp format (ms)
+ * @param {number} timeout it is difference of alarm time and current time (for setTimeout)
+ * @param {number} id ID of setTimeout, used for clearTimeout
+ */
+function setAlarm(reminder){
+    var timeout = reminder - new Date().getTime()
+    // console.log(timeout)
+    var id = setTimeout(()=>{
+        alert(reminder/1000)
+        destroyReminder(reminder)
+    },timeout)
+    timeoutsIds[reminder]= id; 
+    document.getElementById("reminders").innerHTML+=`<reminder-card id="${reminder}" unixTimestamp="${reminder}"></reminder-card>`
+}
+
+/**
+ * @param {object} collection of reminders
+ * 
+ */
+function loadReminders(){
+    var reminders = JSON.parse(localStorage.getItem("reminders"))
+    //console.log("Reminders :",reminders)
+    // console.group("Timeouts")
+    if (reminders) reminders.forEach(reminder=>setAlarm(reminder))
+    // console.groupEnd()
+}
+
+/**
+ * creates a new reminder and saves it to LS
+ */
+function saveReminder(){
+    var hour= parseInt(Hour.innerHTML)
+    var min = parseInt(Min.innerHTML)
+
+    // converting 24hr to 24hr 
+    if      (Period[1].checked && hour<12 ) hour+=12; // PM
+    else if (Period[0].checked && hour==12) hour=00; // AM
+    // console.log(hour, min)
+
+    // generate unixTimestamp/reminder
+    var currentDate = new Date()
+    var reminder = new Date(`${currentDate.getMonth()+1}/${currentDate.getDate()}/${currentDate.getFullYear()}, ${hour}:${min}:00`).getTime()
+    // console.log("new Reminder :",reminder)
+
+    // we need to add this new reminder with already stored in localStorage 
+    var reminders= JSON.parse(localStorage.getItem("reminders"))  
+    var newReminders = (reminders)? reminders:[] 
+    newReminders.push(reminder) 
+    localStorage.setItem("reminders", JSON.stringify(newReminders))
+    
+    // now we need to set alarm also
+    setAlarm(reminder)
+}
+
+
+
+/* this function is invoked on 2 situations  
+    1. when reminder is fired
+    2, when user clicks remove
+*/
 function destroyReminder(reminderToDelete) {
-    // remove from LS , clearSetTimeout , remove element
-    console.error(reminderToDelete)
-
+    // console.error(reminderToDelete)
     var reminders = JSON.parse( localStorage.getItem("reminders"))
-    var filteredReminders = reminders.filter((reminder)=>reminder!==reminderToDelete)
-    console.log(filteredReminders)
+    var filteredReminders = reminders.filter(reminder=>reminder!==reminderToDelete)
     localStorage.setItem("reminders",JSON.stringify(filteredReminders))
-
-    clearTimeout(timeouts[reminderToDelete])
-    // console.log(reminderToDelete)
-    var d=document.getElementById(reminderToDelete.toString())
-    console.log(d)
-    d.remove()
-    
-    
+    clearTimeout(timeoutsIds[reminderToDelete]) // clear setTimeout of reminder
+    document.getElementById(reminderToDelete.toString()).remove() // remove from DOM
 }
 
