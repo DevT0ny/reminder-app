@@ -28,7 +28,7 @@ var timeoutsIds={}
  * @param {number} id ID of setTimeout, used for clearTimeout
  */
 function setAlarm(reminder){
-    var timeout = reminder - new Date().getTime()
+    var timeout = Math.abs(reminder - new Date().getTime()) 
     // console.log(timeout) 
     var id = setTimeout(()=>{
         document.getElementById("sound").play()
