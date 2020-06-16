@@ -31,9 +31,10 @@ function setAlarm(reminder){
     var timeout = reminder - new Date().getTime()
     // console.log(timeout) 
     var id = setTimeout(()=>{
+        document.getElementById("sound").play()
         navigator.vibrate([500,110,500,110,450,110,200,110,170,40,450,110,200,110,170,40,500]) // for vibrating credit :https://youtu.be/EZpdEljk5dY?t=563
-        alert(new Date(reminder).toLocaleTimeString()+"\nHello darkness, my old friend I've come to talk with you again")
         destroyReminder(reminder)
+        alert(new Date(reminder).toLocaleTimeString()+"\nHello darkness, my old friend I've come to talk with you again")  
     },timeout)
     timeoutsIds[reminder]= id; 
     document.getElementById("reminders").innerHTML+=`<reminder-card id="${reminder}" unixTimestamp="${reminder}"></reminder-card>`

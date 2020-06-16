@@ -139,17 +139,14 @@ i.rotate{
     left:0px;
     left: calc( 50vw - 180px);
     top: 20px;
-    transition-delay: 9s;
-    opacity: 0;
-    display: none;
-    transition: opacity .3s ;
-    transform-origin: top;
     overflow: hidden;
+    clip-path: circle(0px at 50% 94%);
     border-radius: 10px;
+    transition: clip-path .3s ease-in-out;
 }
 .disp{
-    display:block;
-    opacity: 1;
+    clip-path: circle(140%);
+
 }
 
 .time{
@@ -176,7 +173,6 @@ i.rotate{
     border-radius: 50%;
     color: white;
     outline: none;
-    cursor: pointer;
     font-weight: 600;
 }
 .hrs > button{
@@ -257,6 +253,10 @@ h4{
 button#save:active{
     background-color:#AC07FA ;
     
+}
+
+.sound{
+    display: none;
 }
 
 /* credits and github */
