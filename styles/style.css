@@ -19,8 +19,8 @@ body{
     border-radius: 10px;
     background: #ffffff;
     overflow: hidden;
-    box-shadow:  20px 20px 50px #888888, 
-                -20px -20px 50px #ffffff;
+    /* box-shadow:  5px 0px 30px #a7a7a7, 
+                -10px -20px 50px #ffffff; */
 }
 .card{
     width: 360px;
@@ -46,8 +46,10 @@ body{
     cursor: pointer;
     height: 100%;   
     background: #ffffff;
-    box-shadow: inset 25px 25px 60px #bababa,
-    inset -25px -25px 60px #ffffff; 
+    border-radius: 0px;
+    background: #ffffff;
+    box-shadow: inset 9px 9px 32px #c2c2c2, 
+                inset -9px -9px 32px #ffffff;
     padding-bottom: 140px;
     box-sizing: border-box;
 }
@@ -65,8 +67,12 @@ body{
     align-items: center;
     justify-content: center;
     background: linear-gradient(145deg, #ffffff, #e6e6e6);
-    box-shadow:  25px 25px 60px #bababa, 
-                -25px -25px 60px #ffffff;
+    /* box-shadow:  25px 25px 60px #bababa, 
+                -25px -25px 60px #ffffff; */
+    border-radius: 0px;
+    background: linear-gradient(145deg, #ffffff, #e6e6e6);
+    box-shadow:  22px 22px 44px #c2c2c2, 
+                    -22px -22px 44px #ffffff;
 }
 
 .reminder > div{
