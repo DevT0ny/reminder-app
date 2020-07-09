@@ -27,6 +27,18 @@ var timeoutsIds={}
  * @param {number} timeout it is difference of alarm time and current time (for setTimeout)
  * @param {number} id ID of setTimeout, used for clearTimeout
  */
+var stop= false;
+var sound = document.getElementById("sound")
+
+async function lop(){
+    if (!stop){
+        await sound.play()
+        lop()
+        await console.log(stop)
+    }else
+    return
+// console.log("end")
+}
 function setAlarm(reminder){
     var timeout = Math.abs(reminder - new Date().getTime()) 
     // console.log(timeout) 
@@ -34,7 +46,10 @@ function setAlarm(reminder){
         document.getElementById("sound").play()
         navigator.vibrate([500,110,500,110,450,110,200,110,170,40,450,110,200,110,170,40,500]) // for vibrating credit :https://youtu.be/EZpdEljk5dY?t=563
         destroyReminder(reminder)
-        alert(new Date(reminder).toLocaleTimeString()+"\nHello darkness, my old friend I've come to talk with you again")  
+        lop();
+        // alert(new Date(reminder).toLocaleTimeString()+"\nHello darkness, my old friend I've come to talk with you again")  
+         setTimeout(()=>{stop=true;console.log("SET")},10000) 
+
     },timeout)
     timeoutsIds[reminder]= id; 
     document.getElementById("reminders").innerHTML+=`<reminder-card id="${reminder}" unixTimestamp="${reminder}"></reminder-card>`
@@ -52,6 +67,8 @@ function loadReminders(){
  * creates a new reminder and saves it to LS
  */
 function saveReminder(){
+    document.getElementById("addWindow").classList.toggle("disp");
+
     var hour= parseInt(Hour.innerHTML)
     var min = parseInt(Min.innerHTML)
 
