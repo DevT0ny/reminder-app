@@ -43,7 +43,7 @@ body{
 .reminders{
     overflow: auto;
     white-space: nowrap;
-    cursor: pointer;
+    /* cursor: pointer; */
     height: 100%;   
     background: #ffffff;
     border-radius: 0px;
