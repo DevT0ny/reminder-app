@@ -11,7 +11,7 @@ body{
     font-family: 'Montserrat', sans-serif;
 }
 .container{
-    width: 360px;
+    width: 320px;
     height: 600px;
     margin: auto;
     margin-top: 20px;
@@ -23,7 +23,7 @@ body{
                 -10px -20px 50px #ffffff; */
 }
 .card{
-    width: 360px;
+    width: 320px;
     height: 600px;
     background: #ffffff;
     box-shadow: inset 25px 25px 60px #bababa, 
@@ -143,7 +143,7 @@ i.rotate{
 .abs{
     position: absolute;
     left:0px;
-    left: calc( 50vw - 180px);
+    left: calc( 50vw - 160px);
     top: 20px;
     overflow: hidden;
     clip-path: circle(0px at 50% 94%);
